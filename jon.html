@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 2-Minute Timer </title>
+
+    <style>
+   /* Style for the timer container */
+  #timer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(50vh - 50px); /* Set height of container to 80% - 80px */
+    margin-top: 0px; /* Set top margin to 100px */
+  }
+
+  /* Style for the timer */
+  #timer {
+    font-size: 60px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- Timer container -->
+<div id="timer-container">
+  <!-- Timer display -->
+  <div id="timer">02:00</div>
+</div>
+
+<script>
+  // Function to update the timer every second
+  const updateTimer = () => {
+    // Retrieve time from localStorage or set default value
+    let time = localStorage.getItem('timer') || 120;
+
+    // Decrement the time by 1 second
+    time--;
+
+    // Calculate minutes and seconds
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+
+    // Add leading zero if necessary
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    // Update the timer display
+    document.getElementById('timer').innerHTML = minutes + ":" + seconds;
+
+    // Store the updated time in localStorage
+    localStorage.setItem('timer', time);
+
+    // Check if time is up
+    if (time <= 0) {
+      clearInterval(interval);
+      alert('Time is up!');
+    }
+  };
+
+  // Call the updateTimer function every second
+  const interval = setInterval(updateTimer, 1000);
+</script>
+
+</body>
+
+</html>
+
+
+
+
+
